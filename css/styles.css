@@ -1,0 +1,15 @@
+body{
+    padding: 100px;
+}
+
+/* Submit Area  */
+.submit-area{
+    margin-top: 50px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px black;  
+    padding: 40px;
+}
+
+.submit-area h3{
+    line-height: 4rem;
+}

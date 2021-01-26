@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+    <!-- Login Area  -->
     <div id="login-area">
         <h1 class="text-center">Welcome to Reliance Bank Ltd.</h1>
         <div class="submit-area">
@@ -22,12 +23,95 @@
             <button id="login" class="btn btn-success">Enter</button>
         </div>
     </div>
+
+    <!-- Transaction Area  -->
+    <div id="transaction-area">
+        <h1 class="text-center">Reliance Bank Ltd.</h1>
+        <div class="row balance-status">
+            <div class="col-md-4">
+                <div class="status deposit">
+                    <h5>Deposit</h5>
+                    <h2>$<span id="currentDeposit">00</span></h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="status withdraw">
+                    <h5>Withdraw</h5>
+                    <h2>$<span id="currentWithdraw">00</span></h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="status balance">
+                    <h5>Balance</h5>
+                    <h2>$<span id="currentBalance">1000</span></h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Input deposit and withdraw  -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="submit-area">
+                    <h4>Deposit</h4>
+                    <input id="depositAmount" type="text" class="form-control" placeholder="$ amount you want to deposit"><br>
+                    <button id="clickDeposit" class="btn btn-success">Deposit</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="submit-area">
+                    <h4>Withdraw</h4>
+                    <input id="withdrawAmount" type="text" class="form-control" placeholder="$ amount you want to withdraw"><br>
+                    <button id="clickWithdraw" class="btn btn-success">Withdraw</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
+        // Login Area Event Handler
         const loginBtn = document.getElementById('login');
         loginBtn.addEventListener('click', function(){
             const loginArea = document.getElementById('login-area');
             loginArea.style.display = "none";
+            const transactionArea = document.getElementById('transaction-area');
+            transactionArea.style.display = "block";
         })
+
+        //Deposit button Event Handler
+        const depositBtn = document.getElementById('clickDeposit');
+        depositBtn.addEventListener('click', function(){
+            const depositNumber = getInputNumber('depositAmount');
+
+
+            updateSpanText("currentDeposit", depositNumber);
+            updateSpanText("currentBalance", depositNumber);
+
+            document.getElementById('depositAmount').value = "";
+        })
+
+        // Withdraw Button Event Handler 
+        const withdrawBtn = document.getElementById('clickWithdraw');
+        withdrawBtn.addEventListener('click', function(){
+            const withdrawNumber = getInputNumber("withdrawAmount");
+
+            updateSpanText("currentWithdraw", withdrawNumber);
+            updateSpanText("currentBalance", -1 * withdrawNumber)
+
+            document.getElementById('withdrawAmount').value = "";
+        })
+        //Get Input Number
+        function getInputNumber(id){
+            const amount = document.getElementById(id).value;
+            const withdrawNumber = parseFloat(amount);
+            return withdrawNumber;
+        }
+
+        //Update Span Text
+        function updateSpanText(id, addedAmount){
+            const current = document.getElementById(id).innerText;
+            const currentNumber = parseFloat(current);
+            const totalAmount = currentNumber + addedAmount;
+            document.getElementById(id).innerText = totalAmount;
+        }
     </script>
 </body>
 </html>
